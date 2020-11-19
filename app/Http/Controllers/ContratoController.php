@@ -3,20 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Storage;
-use App\Http\Requests\NovidadeRequest;
+use App\Http\Requests\ContratoRequest;
 use Illuminate\Http\Request;
-use App\Novidade;
+use App\ContratoSetor;
+use App\Contrato;
 
-class NovidadeController extends Controller
+class ContratoController extends Controller
 {
     protected $request;
     private $repository;
 
-    public function __construct(Request $request, Novidade $novidade)
+    public function __construct(Request $request, Contrato $contrato)
     {
         $this->request = $request;
-        $this->repository = $novidade;
+        $this->repository = $contrato;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -24,9 +26,9 @@ class NovidadeController extends Controller
      */
     public function index()
     {
-        $novidades = Novidade::paginate(25);
+        $contratos = Contrato::paginate(25);
 
-        return view('pages.novidades.index', compact('novidades'));
+        return view('pages.contratos.index', compact('contratos'));
     }
 
     /**
@@ -36,7 +38,10 @@ class NovidadeController extends Controller
      */
     public function create()
     {
-        return view('pages.novidades.create');
+        $setors = ContratoSetor::all();
+
+        return view('pages.contratos.create', compact('setors'));
+    
     }
 
     /**
@@ -45,31 +50,19 @@ class NovidadeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(NovidadeRequest $request)
+    public function store(ContratoRequest $request, Contrato $model)
     {
-        $data = $request->only('titulo', 'sub_titulo', 'descricao', 'descricao_longa', 'image', 'descricao_media', 'obs');
+        $data = $request->only('titulo', 'sub_titulo', 'descricao', 'descricao_longa', 'contrato_setor_id', 'rentabilidade_alvo', 'body', 'body_2', 'valor_captado', 'body_3', 'status', 'valor_cota', 'participacao');
 
         if ($request->hasFile('image') && $request->image->isValid()) {
-            $imagePath = $request->image->store('novidades');
+            $imagePath = $request->image->store('contratos');
 
             $data['image'] = $imagePath;
         }
 
         $this->repository->create($data);
 
-
-        return redirect()->route('novidades.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return redirect()->route('contratos.index');
     }
 
     /**
@@ -80,10 +73,12 @@ class NovidadeController extends Controller
      */
     public function edit($id)
     {
-        if (!$novidade = $this->repository->find($id))
+        $setores = ContratoSetor::all();
+
+        if (!$contrato = $this->repository->find($id))
             return redirect()->back();
 
-        return view('pages.novidades.edit', compact('novidade'));
+        return view('pages.contratos.edit', compact('contrato', 'setores'));
     }
 
     /**
@@ -93,26 +88,26 @@ class NovidadeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(NovidadeRequest $request, $id)
+    public function update(ContratoRequest $request, $id)
     {
-        if (!$novidade = $this->repository->find($id))
+        if (!$contrato = $this->repository->find($id))
             return redirect()->back();
 
         $data = $request->all();
 
         if ($request->hasFile('image') && $request->image->isValid()) {
 
-            if ($novidade->image && Storage::exists($novidade->image)) {
-                Storage::delete($novidade->image);
+            if ($contrato->image && Storage::exists($contrato->image)) {
+                Storage::delete($contrato->image);
             }
 
             $imagePath = $request->image->store('novidades');
             $data['image'] = $imagePath;
         }
 
-        $novidade->update($data);
+        $contrato->update($data);
 
-        return redirect()->route('novidades.index');
+        return redirect()->route('contratos.index');
     }
 
     /**
@@ -123,16 +118,16 @@ class NovidadeController extends Controller
      */
     public function destroy($id)
     {
-        $novidade = $this->repository->where('id', $id)->first();
-        if (!$novidade)
+        $contrato = $this->repository->where('id', $id)->first();
+        if (!$contrato)
             return redirect()->back();
-
-        if ($novidade->image && Storage::exists($novidade->image)) {
-            Storage::delete($novidade->image);
-        }
     
-        $novidade->delete();
+        if ($contrato->image && Storage::exists($contrato->image)) {
+            Storage::delete($contrato->image);
+        }
 
-        return redirect()->route('novidades.index');
+        $contrato->delete();
+
+        return redirect()->route('contratos.index');
     }
 }

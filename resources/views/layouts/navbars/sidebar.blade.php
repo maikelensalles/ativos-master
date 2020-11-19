@@ -14,19 +14,19 @@
                 <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="media align-items-center">
                         <span class="avatar avatar-sm rounded-circle">
-                        <img alt="Image placeholder" src="{{ asset('argon') }}/img/theme/team-1-800x800.jpg">
+                        <img alt="Image placeholder" src="{{ asset('argon') }}/img/theme/team-semfoto.jpg">
                         </span>
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
                     <div class=" dropdown-header noti-title">
-                        <h6 class="text-overflow m-0">{{ __('Welcome!') }}</h6>
+                        <h6 class="text-overflow m-0">{{ __('Seja bem vindo(a)!') }}</h6>
                     </div>
                     <a href="{{ route('profile.edit') }}" class="dropdown-item">
                         <i class="ni ni-single-02"></i>
-                        <span>{{ __('My profile') }}</span>
+                        <span>{{ __('Meu Perfil') }}</span>
                     </a>
-                    <a href="#" class="dropdown-item">
+                    {{--<a href="#" class="dropdown-item">
                         <i class="ni ni-settings-gear-65"></i>
                         <span>{{ __('Settings') }}</span>
                     </a>
@@ -37,12 +37,12 @@
                     <a href="#" class="dropdown-item">
                         <i class="ni ni-support-16"></i>
                         <span>{{ __('Support') }}</span>
-                    </a>
+                    </a>--}}
                     <div class="dropdown-divider"></div>
                     <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">
                         <i class="ni ni-user-run"></i>
-                        <span>{{ __('Logout') }}</span>
+                        <span>{{ __('Sair') }}</span>
                     </a>
                 </div>
             </li>
@@ -85,6 +85,12 @@
                 </li>
 
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('contratos.index') }}">
+                        <i class="fas fa-file-contract text-default"></i> {{ __('Propostas') }}
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="fas fa-file-signature text-info"></i> {{ __('Meus Contratos') }}
                     </a>
@@ -110,7 +116,7 @@
             
                 <li class="nav-item">
                     <a class="nav-link " href="#navbar" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar">
-                        <i class="fas fa-angle-double-right text-default"></i>
+                        <i class="fas fa-angle-double-right text-warning"></i>
                         <span class="nav-link-text">{{ __('Mais') }}</span>
                     </a>
 
