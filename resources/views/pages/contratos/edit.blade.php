@@ -105,7 +105,7 @@
                                             <select name="status"  id="input-status" class="form-control form-control-alternative{{ $errors->has('status') ? ' is-invalid' : '' }}" required>
                                             <option value="INVESTIR">Aberto</option>
                                             <option value="ENCERRADO">Encerrado</option>
-                                            <option value="LISTA DE ESPERA">Lista de espera</option>
+                                            <option value="LISTA ESPERA">Lista de espera</option>
                                             </select>
                                             @include('alerts.feedback', ['field' => 'status'])
                                         </div>                            

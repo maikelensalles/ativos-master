@@ -19,6 +19,8 @@ Route::resource('contratos', 'ContratoController')->middleware('auth');
 
 Route::resource('setors', 'ContratoSetorController')->middleware('auth');
 
+Route::resource('propostas', 'ContratoUserController')->middleware('auth');
+
 Route::get('/', function () {
     return view('auth.login');
 });

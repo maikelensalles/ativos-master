@@ -21,7 +21,7 @@ class CreateContratosTable extends Migration
             $table->string('sub_titulo')->nullable();
             $table->string('descricao')->nullable();
             $table->string('descricao_longa')->nullable();
-            $table->text('body_3');
+            $table->text('body_3')->nullable();
             $table->text('body');
             $table->text('body_2')->nullable();
             $table->unsignedBigInteger('contrato_setor_id');
@@ -29,6 +29,7 @@ class CreateContratosTable extends Migration
             $table->string('valor_cota');
             $table->string('participacao')->nullable();
             $table->string('status')->nullable();
+            $table->string('slug');
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('contrato_setor_id')->references('id')->on('contrato_setors');

@@ -52,7 +52,7 @@ class ContratoController extends Controller
      */
     public function store(ContratoRequest $request, Contrato $model)
     {
-        $data = $request->only('titulo', 'sub_titulo', 'descricao', 'descricao_longa', 'contrato_setor_id', 'rentabilidade_alvo', 'body', 'body_2', 'valor_captado', 'body_3', 'status', 'valor_cota', 'participacao');
+        $data = $request->all();
 
         if ($request->hasFile('image') && $request->image->isValid()) {
             $imagePath = $request->image->store('contratos');
@@ -129,5 +129,12 @@ class ContratoController extends Controller
         $contrato->delete();
 
         return redirect()->route('contratos.index');
+    }
+
+    public function single($slug)
+    {
+        $contrato = $this->contrato->whereSlug($slug)->first();
+
+        return view('single', compact('contrato'));
     }
 }

@@ -6,8 +6,7 @@
         <div class="header-body">
             <div class="row"> 
                 <div class="col">
-                    <div class="card shadow">
-                        
+                    <div class="card shadow">                       
                         <div class="p-4 bg-secondary">
                             <h1>Cadastrar Novo Contrato</h1> 
                                 <form method="post" action="{{ route('contratos.store') }}" enctype="multipart/form-data" autocomplete="off">
@@ -103,7 +102,7 @@
                                             <select name="status"  id="input-status" class="form-control form-control-alternative{{ $errors->has('status') ? ' is-invalid' : '' }}" required>
                                             <option value="INVESTIR">Aberto</option>
                                             <option value="ENCERRADO">Encerrado</option>
-                                            <option value="LISTA DE ESPERA">Lista de espera</option>
+                                            <option value="LISTA ESPERA">Lista de espera</option>
                                             </select>
                                             @include('alerts.feedback', ['field' => 'status'])
                                         </div>                         
