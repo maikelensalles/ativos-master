@@ -12,21 +12,23 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::resource('novidades', 'NovidadeController')->middleware('auth');
 
-Route::resource('contratos', 'ContratoController')->middleware('auth');
+Route::resource('contratos', 'ContratoUserController')->middleware('auth');
+
+Route::resource('propostas', 'ContratoController')->middleware('auth');
 
 Route::resource('setors', 'ContratoSetorController')->middleware('auth');
 
-Route::resource('propostas', 'ContratoUserController')->middleware('auth');
+Route::resource('gestores', 'GestorController')->middleware('auth');
+
+Route::get('/proposta/{slug}', 'ContratoController@single')->name('propostas.single');
 
 Route::get('/', function () {
     return view('auth.login');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
-
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
@@ -37,17 +39,15 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
-	Route::get('cadastros', ['as' => 'cadastros.create', 'uses' => 'UserController@create']);
-	Route::get('cadastros', ['as' => 'cadastros.index', 'uses' => 'CadastroController@index']); 
+	Route::get('cadastros', ['as' => 'cadastros.create', 'uses' => 'CadastroController@create']);
 	Route::post('cadastros', ['as' => 'cadastros.store', 'uses' => 'CadastroController@store']);
 	Route::put('cadastros', ['as' => 'cadastros.update', 'uses' => 'CadastroController@update']);
 	Route::get('cadastros', ['as' => 'cadastros.edit', 'uses' => 'CadastroController@edit']);
-
+	Route::get('cadastros/{id}', ['as' => 'cadastros.show', 'uses' => 'CadastroController@show']);
 });
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('bancarios', ['as' => 'bancarios.create', 'uses' => 'BancarioController@create']);
-	Route::get('bancarios', ['as' => 'bancarios.index', 'uses' => 'BancarioController@index']); 
 	Route::post('bancarios', ['as' => 'bancarios.store', 'uses' => 'BancarioController@store']);
 	Route::put('bancarios', ['as' => 'bancarios.update', 'uses' => 'BancarioController@update']);
 	Route::get('bancarios', ['as' => 'bancarios.edit', 'uses' => 'BancarioController@edit']);

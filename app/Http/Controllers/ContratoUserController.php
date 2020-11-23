@@ -26,9 +26,11 @@ class ContratoUserController extends Controller
      */
     public function index(ContratoUser $model)
     {
-        $contratouser = ContratoUser::paginate(25);
+        $contratousers = ContratoUser::paginate(25);
 
-        return view('pages.propostas.index', compact('contratouser'));
+        $contratos = Contrato::all();
+
+        return view('pages.contratos.index', compact('contratousers', 'contratos'));
     }
 
     /**
@@ -48,16 +50,22 @@ class ContratoUserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ContratoUserRequest $request, ContratoUser $user)
+    public function store(ContratoUserRequest $request, ContratoUser $model)
     {
+        $contratousers = ContratoUser::paginate(25);
+
+        $contratos = Contrato::all();
+
+        $user = User::all();
+
         $data = $request->all();
 
         $this->repository->create($data);
 
-        return redirect()->route('propostas.index');
+        return redirect()->route('contratos.index', compact('contratousers', 'contratos', 'user'));
     }
 
     /**
@@ -98,7 +106,7 @@ class ContratoUserController extends Controller
 
         $contratouser->update($data);
 
-        return redirect()->route('propostas.index');
+        return redirect()->route('contratos.index');
     }
 
     /**
@@ -115,7 +123,7 @@ class ContratoUserController extends Controller
 
         $contratouser->delete();
 
-        return redirect()->route('propostas.index');
+        return redirect()->route('contratos.index');
     }
 
 }

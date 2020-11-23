@@ -12,11 +12,11 @@ class ContratoUser extends Model
     
     public function contrato()
     {
-        return $this->belongsTo('App\Contrato', 'contrato_id')->withTrashed();
+        return $this->belongsTo('App\Contrato', 'contrato_id');
     }
 
     public function user()
     {
-        return $this->belongsTo('App\User', 'user_id')->withTrashed();
+        return $this->belongsTo('App\User', 'user_id');
     }
 }

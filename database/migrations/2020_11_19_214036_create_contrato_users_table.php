@@ -16,6 +16,8 @@ class CreateContratoUsersTable extends Migration
         Schema::create('contrato_users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('valor');
+            $table->string('saque')->nullable();
+            $table->string('notificacao')->nullable();
             $table->unsignedBigInteger('contrato_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();

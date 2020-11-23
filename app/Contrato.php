@@ -28,7 +28,7 @@ class Contrato extends Model
         return $this->belongsTo('App\ContratoSetor', 'contrato_setor_id')->withTrashed();
     }
 
-    public function user() {
+    public function contrato() {
         return $this->hasMany('App\ContratoUser');
     }
 }

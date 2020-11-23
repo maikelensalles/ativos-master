@@ -11,12 +11,14 @@ use App\Contrato;
 class ContratoController extends Controller
 {
     protected $request;
+    private $contrato;
     private $repository;
 
-    public function __construct(Request $request, Contrato $contrato)
+    public function __construct(Contrato $contrato, Request $request)
     {
         $this->request = $request;
         $this->repository = $contrato;
+        $this->contrato = $contrato;
     }
 
     /**
@@ -28,7 +30,7 @@ class ContratoController extends Controller
     {
         $contratos = Contrato::paginate(25);
 
-        return view('pages.contratos.index', compact('contratos'));
+        return view('pages.propostas.index', compact('contratos'));
     }
 
     /**
@@ -40,7 +42,7 @@ class ContratoController extends Controller
     {
         $setors = ContratoSetor::all();
 
-        return view('pages.contratos.create', compact('setors'));
+        return view('pages.propostas.create', compact('setors'));
     
     }
 
@@ -52,7 +54,7 @@ class ContratoController extends Controller
      */
     public function store(ContratoRequest $request, Contrato $model)
     {
-        $data = $request->all();
+        $data = $request->only('titulo', 'sub_titulo', 'descricao', 'descricao_longa', 'contrato_setor_id', 'rentabilidade_alvo', 'body', 'body_2', 'valor_captado', 'body_3', 'status', 'valor_cota', 'participacao');
 
         if ($request->hasFile('image') && $request->image->isValid()) {
             $imagePath = $request->image->store('contratos');
@@ -62,7 +64,23 @@ class ContratoController extends Controller
 
         $this->repository->create($data);
 
-        return redirect()->route('contratos.index');
+        return redirect()->route('propostas.index');
+    }
+
+     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        if (!$contrato = $this->repository->find($id))
+            return redirect()->back();
+
+        return view('pages.propostas.show', [
+            'contrato' => $contrato
+        ]);
     }
 
     /**
@@ -78,7 +96,7 @@ class ContratoController extends Controller
         if (!$contrato = $this->repository->find($id))
             return redirect()->back();
 
-        return view('pages.contratos.edit', compact('contrato', 'setores'));
+        return view('pages.propostas.edit', compact('contrato', 'setores'));
     }
 
     /**
@@ -107,7 +125,7 @@ class ContratoController extends Controller
 
         $contrato->update($data);
 
-        return redirect()->route('contratos.index');
+        return redirect()->route('propostas.index');
     }
 
     /**
@@ -128,7 +146,7 @@ class ContratoController extends Controller
 
         $contrato->delete();
 
-        return redirect()->route('contratos.index');
+        return redirect()->route('propostas.index');
     }
 
     public function single($slug)
