@@ -49,16 +49,64 @@
                                     <hr>
                                     <div class="row">
                                         <div class="col text-left">
-                                            <a href="{{ route('propostas.single', ['slug' => $contratouser->contrato->slug]) }}" class="btn btn-secondary btn-sm">VER DETALHES</a>     
-                                        </div>
-                                        <div class="col text-right">
                                             <form action="{{ route('user.show', $contratouser->user) }}">
                                                 @csrf
                                                     
-                                                    <button type="submit" class="btn btn-success btn-sm">Usuário</button>
+                                                    <button type="submit" class="btn btn-success btn-sm">USUÁRIO</button>
                                                 </form>
                                                 <br>   
                                         </div>
+                                 
+                                        <div class="col text-right">
+                                            <button type="button" class="btn btn-block btn-warning btn-sm " data-toggle="modal" data-target="#modal-notification-{{ $contratouser->contrato->id }}">ENVIAR STATUS</button>
+                                            <div class="modal fade" id="modal-notification-{{ $contratouser->contrato->id }}" tabindex="-1" role="dialog" aria-labelledby="modal-notification" aria-hidden="true">
+                                          <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+                                              <div class="modal-content bg-gradient-danger">
+                                                  
+                                                  <div class="modal-header">
+                                                      <h4 class="modal-title" id="modal-title-notification">Titulo fixo aqui...</h4>
+                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                          <span aria-hidden="true">×</span>
+                                                      </button>
+                                                  </div>
+                                                  
+                                                  <div class="modal-body">
+                                                      
+                                                      <div class="py-3 text-center">
+                                                          <i class="ni ni-bell-55 ni-3x"></i>
+                                                          <h3 class="heading mt-4">Obrigado por investir conosco!</h3>
+                                                          <h4 class="heading mt-4">{{ $contratouser->contrato->titulo }}:</h4>
+
+                                                          <form method="post" action="{{ route('contratos.store') }}" autocomplete="off">
+                                                            @csrf
+
+                                                            <div class="pl-lg-4">
+                                                                                                                                       
+                                                                <div class="form-group{{ $errors->has('notificacao') ? ' has-danger' : '' }}">
+                                                                    <label class="form-control-label" for="input-notificacao"></label>
+                                                                    <input type="text" name="notificacao" id="input-notificacao" class="form-control form-control-alternative{{ $errors->has('notificacao') ? ' is-invalid' : '' }}" placeholder="Status da proposta..." value="{{ old('notificacao', $contratouser->notificacao) }}" required autofocus>
+                                                                </div>
+                        
+                                                            
+                                                                <div class="text-center">
+                                                                    <button type="submit" class="btn btn-success mt-4">Enviar</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>                                                      </div>
+                                                      
+                                                  </div>
+                                                  
+                                                  <div class="text-center">
+                                                      <button type="button" class="btn btn-white ml-auto" data-dismiss="modal">Ok, entendi</button>
+                                                      <br>
+                                                  </div>
+                                                  <br>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      
+                                        </div>
+                                        
                                     </div>
                                 </div> 
                             </div>

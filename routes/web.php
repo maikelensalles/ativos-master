@@ -12,9 +12,17 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::resource('novidades', 'NovidadeController')->middleware('auth');
+Route::group(['middleware' => 'auth'], function () {
+	Route::get('contratos', ['as' => 'contratos.create', 'uses' => 'ContratoUserController@create']);
+	Route::post('contratos', ['as' => 'contratos.store', 'uses' => 'ContratoUserController@store']);
+	Route::put('contratos', ['as' => 'contratos.update', 'uses' => 'ContratoUserController@update']);
+	Route::get('contratos', ['as' => 'contratos.edit', 'uses' => 'ContratoUserController@edit']);
+	Route::get('contratos/{id}', ['as' => 'contratos.show', 'uses' => 'ContratoUserController@show']);
+	Route::get('contratos', ['as' => 'contratos.index', 'uses' => 'ContratoUserController@index']);
+	Route::delete('contratos/{id}', ['as' => 'contratos.destroy', 'uses' => 'ContratoUserController@destroy']);
+});
 
-Route::resource('contratos', 'ContratoUserController')->middleware('auth');
+Route::resource('novidades', 'NovidadeController')->middleware('auth');
 
 Route::resource('propostas', 'ContratoController')->middleware('auth');
 

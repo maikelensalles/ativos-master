@@ -40,11 +40,9 @@ class ContratoUserController extends Controller
      */
     public function create()
     {
-        $user = User::all();
+        $contratousers = ContratoUser::all();
 
-        $contrato = Contrato::all();
-
-        return view('pages.contratos.show', compact('user', 'contrato')); 
+        return view('pages.contratos.shindexow', compact( 'contratousers')); 
     }
 
     /**
@@ -85,28 +83,22 @@ class ContratoUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        return view('pages.contratos.index');
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the profile
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \App\Http\Requests\ProfileRequest  $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(ContratoUserRequest $request, $id)
-    {   
-        if (!$contratouser = $this->repository->find($id))
-            return redirect()->back();
+    public function update(ContratoUserRequest $request)
+    {
+        contratousers()->update($request->all());
 
-        $data = $request->all();
-
-        $contratouser->update($data);
-
-        return redirect()->route('contratos.index');
+        return redirect()->route('contratos.index', compact('contratousers'));
     }
 
     /**
@@ -125,5 +117,7 @@ class ContratoUserController extends Controller
 
         return redirect()->route('contratos.index');
     }
+
+
 
 }
