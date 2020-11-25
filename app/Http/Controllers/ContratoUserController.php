@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers; 
 
-use App\Contrato;
-use App\User;
+use App\Http\Requests\ContratoUserRequest;
 use Illuminate\Http\Request;
 use App\ContratoUser;
-use App\Http\Requests\ContratoUserRequest;
+use App\Contrato;
+use App\User;
 
 class ContratoUserController extends Controller
 {
@@ -40,9 +40,7 @@ class ContratoUserController extends Controller
      */
     public function create()
     {
-        $contratousers = ContratoUser::all();
-
-        return view('pages.contratos.shindexow', compact( 'contratousers')); 
+        return view('pages.propostas.show', compact('user', 'contratos')); 
     }
 
     /**
@@ -51,54 +49,63 @@ class ContratoUserController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ContratoUserRequest $request, ContratoUser $model)
+    public function store(ContratoUserRequest $request, ContratoUser $user)
     {
-        $contratousers = ContratoUser::paginate(25);
-
-        $contratos = Contrato::all();
-
-        $user = User::all();
-
-        $data = $request->all();
+        $data = $request->only('status');
 
         $this->repository->create($data);
 
-        return redirect()->route('contratos.index', compact('contratousers', 'contratos', 'user'));
+        return redirect()->route('contratos.index');
     }
 
     /**
      * Display the specified resource.
+     * 
      *
-     * @param  int  $id
+     * @param  int  $idtouser
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, User $model, $id)
+    public function show($id)
     {
-        //
-    } 
+        $contratouser = ContratoUser::all();
 
+        $contrato = Contrato::all();
+
+        return view('pages.contratos.show', compact( 'contratouser', 'contrato'));
+    }
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit($id)
     {
-        return view('pages.contratos.index');
+        $contratouser = ContratoUser::all();
+
+        if (!$contratouser = $this->repository->find($id))
+            return redirect()->back();
+
+        return view('pages.contratos.edit', compact( 'contratouser'));
     }
 
     /**
-     * Update the profile
+     * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\ProfileRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function update(ContratoUserRequest $request)
-    {
-        contratousers()->update($request->all());
+    public function update(Request $request, $id)
+    {   
+        if (!$contratouser = $this->repository->find($id))
+        return redirect()->back();
 
-        return redirect()->route('contratos.index', compact('contratousers'));
+        $data = $request->all();
+
+        $contratouser->update($data);
+
+        return redirect()->route('contratos.index');
     }
 
     /**
@@ -110,6 +117,7 @@ class ContratoUserController extends Controller
     public function destroy( $id)
     {
         $contratouser = $this->repository->where('id', $id)->first();
+
         if (!$contratouser)
             return redirect()->back();
 
@@ -117,7 +125,13 @@ class ContratoUserController extends Controller
 
         return redirect()->route('contratos.index');
     }
+    
+    public function saque(ContratoUser $model)
+    {
+        $contratousers = ContratoUser::paginate(25);
 
+        $contratos = Contrato::all();
 
-
+        return view('pages.saques.saque', compact('contratousers', 'contratos'));
+    }
 }

@@ -17,7 +17,7 @@ class CreateContratoUsersTable extends Migration
             $table->bigIncrements('id');
             $table->string('valor');
             $table->string('saque')->nullable();
-            $table->string('notificacao')->nullable();
+            $table->string('status')->nullable();
             $table->unsignedBigInteger('contrato_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
