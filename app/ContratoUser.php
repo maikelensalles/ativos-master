@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ContratoUser extends Model
 {
     protected $table = 'contrato_users';
-    protected $fillable = ['valor', 'saque', 'status', 'contrato_id', 'user_id'];
+    protected $fillable = ['valor', 'saque', 'status', 'status_saque', 'contrato_id', 'user_id'];
     
     public function contrato()
     {
@@ -18,5 +18,9 @@ class ContratoUser extends Model
     public function user()
     {
         return $this->belongsTo('App\User', 'user_id');
+    }
+
+    public function contratousersaque() {
+        return $this->hasMany('App\ContratoUserSaque');
     }
 }

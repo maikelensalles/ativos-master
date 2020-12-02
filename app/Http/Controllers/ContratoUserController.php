@@ -73,6 +73,7 @@ class ContratoUserController extends Controller
 
         return view('pages.contratos.show', compact( 'contratouser', 'contrato'));
     }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -133,5 +134,28 @@ class ContratoUserController extends Controller
         $contratos = Contrato::all();
 
         return view('pages.saques.saque', compact('contratousers', 'contratos'));
+    }
+
+   
+    public function sacar($id)
+    {
+        $contratouser = ContratoUser::all();
+
+        if (!$contratouser = $this->repository->find($id))
+            return redirect()->back();
+
+        return view('pages.saques.sacar', compact('contratouser'));
+    }
+
+    public function salvar(Request $request, $id)
+    {   
+        if (!$contratouser = $this->repository->find($id))
+        return redirect()->back();
+
+        $data = $request->all();
+
+        $contratouser->update($data);
+
+        return redirect()->route('saques.saque');
     }
 }

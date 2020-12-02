@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+<div class="header bg-gradient-default pb-8 pt-5 pt-md-8">
 
     <div class="container-fluid">
         <div class="header-body">
@@ -93,7 +93,7 @@
     </button>
     <!-- Brand -->
     <a class="navbar-brand pt-0" href="{{ route('home') }}">
-        <img src="{{ asset('argon') }}/img/brand/blue.png" class="navbar-brand-img" alt="...">
+                        <img src="{{ asset('argon') }}/img/brand/logo.png" class="navbar-brand-img" alt="..." style=" max-width: 250px; max-height: 90px;">
     </a>
     <!-- User -->
     <ul class="nav align-items-center d-md-none">
@@ -141,7 +141,7 @@
             <div class="row">
                 <div class="col-6 collapse-brand">
                     <a  href="{{ route('home') }}">
-                        <img src="{{ asset('argon') }}/img/brand/blue.png">
+                        <img src="{{ asset('argon') }}/img/brand/logo.png" class="navbar-brand-img" alt="..." style=" max-width: 250px; max-height: 90px;">
                     </a>
                 </div>
                 <div class="col-6 collapse-close">

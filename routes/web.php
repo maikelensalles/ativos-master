@@ -17,15 +17,21 @@ Route::resource('novidades', 'NovidadeController')->middleware('auth');
 
 Route::resource('propostas', 'ContratoController')->middleware('auth');
 
+Route::resource('resgates', 'ContratoUserSaqueController')->middleware('auth');
+
 Route::resource('contratos', 'ContratoUserController')->middleware('auth');
 
-Route::get('saques', 'ContratoUserController@saque')->name('saques.saque');
+Route::get('saques', 'ContratoUserController@saque')->name('saques.saque')->middleware('auth');
+
+Route::put('saques/{id}', 'ContratoUserController@salvar')->name('saques.salvar')->middleware('auth');
+
+Route::get('saques/{id}/sacar', 'ContratoUserController@sacar')->name('saques.sacar')->middleware('auth');
 
 Route::resource('setors', 'ContratoSetorController')->middleware('auth');
 
 Route::resource('gestores', 'GestorController')->middleware('auth');
 
-Route::get('/proposta/{slug}', 'ContratoController@single')->name('propostas.single');
+Route::get('/proposta/{slug}', 'ContratoController@single')->name('propostas.single')->middleware('auth');
 
 Route::get('/', function () {
     return view('auth.login');

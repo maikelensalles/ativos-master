@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+<div class="header bg-gradient-default pb-8 pt-5 pt-md-8">
     <div class="container-fluid">
         <div class="header-body">
             <h1 class="text-center text-white display-3">Contratos</h1>
@@ -52,7 +52,7 @@
                                             <form action="{{ route('user.show', $contratouser->user) }}">
                                                 @csrf
                                                     
-                                                    <button type="submit" class="btn btn-primary btn-sm">USUÁRIO</button>
+                                                    <button type="submit" class="btn btn-default btn-sm">USUÁRIO</button>
                                             </form>
                                                 <br>   
                                         </div>
@@ -61,7 +61,7 @@
                                             <form action="{{ route('contratos.edit', $contratouser->id) }}">
                                                 @csrf
                                                 
-                                                <button type="submit" class="btn btn-success btn-sm">ENVIAR STATUS</button>
+                                                <button type="submit" class="btn btn-default btn-sm">ENVIAR STATUS</button>
                                             </form>
                                         </div>
                                     </div>
