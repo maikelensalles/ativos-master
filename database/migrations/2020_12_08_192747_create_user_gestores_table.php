@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateContratoUsersSaquesTable extends Migration
+class CreateUserGestoresTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreateContratoUsersSaquesTable extends Migration
      */
     public function up()
     {
-        Schema::create('contrato_users_saques', function (Blueprint $table) {
+        Schema::create('user_gestores', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('saque')->nullable();
-            $table->string('status_saque')->nullable();
-            $table->string('solicitacao')->nullable();
-            $table->unsignedBigInteger('contrato_id');
+            $table->string('nome');
             $table->unsignedBigInteger('user_id');
+            $table->softDeletes();
             $table->timestamps();
-            $table->foreign('contrato_id')->references('id')->on('contrato_users');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
@@ -33,6 +30,6 @@ class CreateContratoUsersSaquesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contrato_users_saques');
+        Schema::dropIfExists('user_gestores');
     }
 }

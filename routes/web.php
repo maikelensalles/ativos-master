@@ -12,8 +12,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::any('propostas/search', 'ContratoController@search')->name('propostas.search')->middleware('auth');
 
 Route::resource('novidades', 'NovidadeController')->middleware('auth');
+
+Route::resource('gestores', 'UserGestoreController')->middleware('auth');
 
 Route::resource('propostas', 'ContratoController')->middleware('auth');
 

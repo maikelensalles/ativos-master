@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ContratoUserSaque extends Model
 {
     protected $table = 'contrato_users_saques';
-    protected $fillable = ['saque', 'contrato_id', 'user_id'];
+    protected $fillable = ['saque', 'status_saque'];
     
     public function contratouser()
     {

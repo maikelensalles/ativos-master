@@ -1,10 +1,10 @@
-<div class="header bg-gradient-primary py-7 py-lg-8">
+<div class="header bg-gradient-default py-6 py-lg-8">
     <div class="container">
         <div class="header-body text-center mb-7">
             <div class="row justify-content-center">
                 <div class="col-lg-5 col-md-6">
-                    <h1 class="text-white">{{ __('Comece a INVESTIR') }}</h1>
-                    <h3 class="text-white">{{ __('É rápido, grátis e seguro.') }}</h3>
+                    <h1 class="text-white">{{ __('Seja bem vindo!') }}</h1>
+                    <h3 class="text-white">{{ __('Entre com seu login e senha.') }}</h3>
                 </div>
             </div>
         </div>

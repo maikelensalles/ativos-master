@@ -155,4 +155,18 @@ class ContratoController extends Controller
 
         return view('single', compact('contrato'));
     }
+
+    /**
+     * Search Contratos
+     */
+    public function search(Request $request)
+    {
+        $filters = $request->except('_token');
+        $contratos = $this->repository->search($request->filter);
+
+        return view('pages.propostas.search', [
+            'contratos' => $contratos,
+            'filters' => $filters,
+        ]);
+    }
 }

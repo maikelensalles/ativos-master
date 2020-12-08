@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Rules\CurrentPasswordCheckRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ContratoUserSaqueRequest extends FormRequest
+class UserGestoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,7 @@ class ContratoUserSaqueRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return auth()->check();
     }
 
     /**
@@ -25,8 +25,7 @@ class ContratoUserSaqueRequest extends FormRequest
     public function rules()
     {
         return [
-            'saque' => ['required'],
-            'status_saque' => ['required'],
+            'nome' => ['required'],
         ];
     }
 

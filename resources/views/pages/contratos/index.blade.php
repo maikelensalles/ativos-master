@@ -16,6 +16,8 @@
                     <div class="card shadow mb-4 mb-xl-4">
                         <div>
                             <br>
+                            <h2 class="card-title-white text-center" >#ID: {{ $contratouser->contrato->id }}</h2>
+
                             <h2 class="card-title-white text-center" >{{ $contratouser->user->name }}</h2>
 
                             <h2 class="card-title-white text-center" >{{ $contratouser->contrato->titulo }}</h2>

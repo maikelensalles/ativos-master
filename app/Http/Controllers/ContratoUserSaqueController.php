@@ -3,9 +3,11 @@
 namespace App\Http\Controllers; 
 
 use App\Http\Requests\ContratoUserSaqueRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\ContratoUser;
 use App\ContratoUserSaque;
+use App\ContratoUser;
+use App\Contrato;
 use App\User;
 
 class ContratoUserSaqueController extends Controller
@@ -28,9 +30,15 @@ class ContratoUserSaqueController extends Controller
     {
         $contratousersaques = ContratoUserSaque::paginate(25);
 
-        $contratos = ContratoUser::all();
+        $contratos = DB::table('contrato_users')
 
-        return view('pages.resgates.index', compact('contratousersaques', 'contratos'));
+                     ->join('contratos', 'contrato_users.contrato_id', '=', 'contratos.id')
+
+                     ->get();
+        
+        $propostas = Contrato::all();
+
+        return view('pages.resgates.index', compact('contratousersaques', 'contratos', 'propostas'));
     }
 
     /**
@@ -40,7 +48,11 @@ class ContratoUserSaqueController extends Controller
      */
     public function create()
     {
-        $contratos = ContratoUser::all();
+        $contratos = DB::table('contrato_users')
+
+                    ->join('contratos', 'contrato_users.contrato_id', '=', 'contratos.id')
+
+                    ->get();
 
         $users = User::all();
 
@@ -53,13 +65,13 @@ class ContratoUserSaqueController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ContratoUserSaqueRequest $request, ContratoUser $model)
+    public function store(ContratoUserSaqueRequest $request)
     {
-        $data = $request->only('saque', 'contrato_id', 'user_id');
+        $data = $request->only('saque', 'status_saque');
 
         $this->repository->create($data);
 
-        return redirect()->route('saques.saque');
+        return redirect()->route('resgates.index');
     }
 
     /**
@@ -82,7 +94,10 @@ class ContratoUserSaqueController extends Controller
      */
     public function edit($id)
     {
-        //
+        if (!$contratousersaque = $this->repository->find($id))
+            return redirect()->back();
+
+        return view('pages.resgates.edit', compact('contratousersaque'));
     }
 
     /**
@@ -92,9 +107,16 @@ class ContratoUserSaqueController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ContratoUserSaqueRequest $request, $id)
     {   
-        //
+        if (!$contratousersaque = $this->repository->find($id))
+            return redirect()->back();
+
+        $data = $request->all();
+
+        $contratousersaque->update($data);
+
+        return redirect()->route('resgates.index');
     }
 
     /**

@@ -33,8 +33,11 @@
                                     @foreach ($data as $key => $user)
                                         <tr>
                                             <td>
-                                                {{--@if ($produto->image)
-                                                    <img src="{{ url("storage/{$produto->image}") }}" alt="{{ $produto->nome }}" style="max-width: 100px;">
+                                                @if ($user->image)
+                                                    <img src="{{ $user->image }}"  style="max-width: 100px;">
+                                                @endif
+                                                {{--@if ($user->image)
+                                                    <img src="{{ url("storage/{$user->image}") }}" alt="{{ $user->name }}" style="max-width: 100px;">
                                                 @endif--}}
                                             </td>
                                             <td>{{ $user->name }}</td>

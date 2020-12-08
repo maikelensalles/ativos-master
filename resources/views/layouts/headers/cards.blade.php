@@ -1,4 +1,4 @@
-<div class="header bg-gradient-default pb-8 pt-5 pt-md-8">
+<div class="header bg-gradient-default opacity-8 pb-8 pt-5 pt-md-8">
     <div class="container-fluid">
         <div class="header-body">
             <!-- Card stats -->
