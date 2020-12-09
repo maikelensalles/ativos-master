@@ -32,8 +32,6 @@ Route::get('saques/{id}/sacar', 'ContratoUserController@sacar')->name('saques.sa
 
 Route::resource('setors', 'ContratoSetorController')->middleware('auth');
 
-Route::resource('gestores', 'GestorController')->middleware('auth');
-
 Route::get('/proposta/{slug}', 'ContratoController@single')->name('propostas.single')->middleware('auth');
 
 Route::get('/', function () {

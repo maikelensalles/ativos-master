@@ -34,7 +34,7 @@
                                         <tr>
                                             <td>
                                                 @if ($user->image)
-                                                    <img src="{{ $user->image }}"  style="max-width: 100px;">
+                                                    <img src="http://ativos.test/storage/{{ $user->image }}"  style="max-width: 100px;">
                                                 @endif
                                                 {{--@if ($user->image)
                                                     <img src="{{ url("storage/{$user->image}") }}" alt="{{ $user->name }}" style="max-width: 100px;">

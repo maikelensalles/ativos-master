@@ -41,10 +41,6 @@ class User extends Authenticatable
         return $this->hasMany('App\ContratoUser');
     }
 
-    public function gestor() {
-        return $this->hasMany('App\UserGestore');
-    }
-
     public function contratousersaque() {
         return $this->hasMany('App\ContratoUserSaque');
     }
