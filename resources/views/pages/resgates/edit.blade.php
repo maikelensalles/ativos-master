@@ -25,7 +25,7 @@
                                         </div>
 
                                         <div class="form-group{{ $errors->has('status_saque') ? ' has-danger' : '' }}">
-                                            <label class="form-control-label" for="input-status_saque">{{ __('Solicitar') }}</label>
+                                            <label class="form-control-label" for="input-status_saque">{{ __('Status ') }}</label>
                                             <select name="status_saque"  id="input-status_saque" class="form-control form-control-alternative{{ $errors->has('status_saque') ? ' is-invalid' : '' }}" required>
                                                 <option value="Aguarde! Estamos analisando sua solicitão.">Aguarde! Estamos analisando sua solicitão.</option>
                                                 <option value="Aprovado! Seu resgate já está disponivel em sua conta.">Aprovado! Seu resgate já está disponivel em sua conta.</option>

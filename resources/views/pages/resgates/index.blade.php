@@ -21,12 +21,9 @@
                         <div class="card-body">
                             <div class="container">
                                 <div class="row">
-                                    <div class="col text-left">
-                                        <h4 class="card-title-white"></h4>
+                                    <div class="col text-center">
+                                        <h2 class="text-green">R$ {{ $contratousersaque->saque }}</h2>
                                     </div>
-                                    <div class="col text-right">
-                                        <p class="card-title-white"></p>
-                                    </div> 
                                 </div>
                                 
                                 <hr>
@@ -35,7 +32,7 @@
                                         <form action="{{ route('resgates.edit', $contratousersaque->id) }}">
                                             @csrf
                                             
-                                            <button type="submit" class="btn btn-success btn-sm">Editar</button>
+                                            <button type="submit" class="btn btn-success btn-sm">Enviar</button>
                                         </form>
  
                                     </div>

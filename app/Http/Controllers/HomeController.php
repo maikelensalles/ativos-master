@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
+use App\ContratoUserSaque;
+use App\ContratoUser;
+use App\User;
+
 class HomeController extends Controller
 {
     /**
@@ -12,7 +17,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-    }
+    } 
 
     /**
      * Show the application dashboard.
@@ -21,6 +26,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard');
+        $contratousers =  ContratoUser::all(); //DB::table('contrato_users')
+
+                        //->join('users', 'contrato_users.user_id', '=', 'users.id')
+
+                        //->select('user_id', DB::raw('sum(valor) as total'))
+
+                        //->groupBy('user_id')
+
+                        //->get();
+
+        return view('dashboard', compact('contratousers'));
     }
 }
+
