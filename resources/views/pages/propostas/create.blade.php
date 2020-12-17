@@ -51,7 +51,7 @@
 
                                         <div class="form-group{{ $errors->has('participacao') ? ' has-danger' : '' }}">
                                             <label class="form-control-label" for="input-participacao">Participação</label>
-                                            <input type="number" name="participacao" id="input-participacao" class="form-control form-control-alternative" placeholder="Participação" value="{{ old('participacao') }}" required>
+                                            <input type="number" step=".01" name="participacao" id="input-participacao" class="form-control form-control-alternative" placeholder="Participação" value="{{ old('participacao') }}" required>
                                             @include('alerts.feedback', ['field' => 'participacao'])
                                         </div>
 
@@ -63,7 +63,7 @@
 
                                         <div class="form-group{{ $errors->has('rentabilidade_alvo') ? ' has-danger' : '' }}">
                                             <label class="form-control-label" for="input-rentabilidade_alvo">Rentabilidade Alvo</label>
-                                            <input type="number" name="rentabilidade_alvo" id="input-rentabilidade_alvo" class="form-control form-control-alternative" placeholder="Rentabilidade Alvo" value="{{ old('rentabilidade_alvo') }}" required>
+                                            <input type="number" step=".01" name="rentabilidade_alvo" id="input-rentabilidade_alvo" class="form-control form-control-alternative" placeholder="Rentabilidade Alvo" value="{{ old('rentabilidade_alvo') }}" required>
                                             @include('alerts.feedback', ['field' => 'rentabilidade_alvo'])
                                         </div> 
 

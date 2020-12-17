@@ -24,11 +24,11 @@ class ContratoRequest extends FormRequest
      */
     public function rules()
     {
-
         return [
             'image' => ['required'],
             'titulo' => ['required'],
             'sub_titulo' => ['required'],
+            'rentabilidade_alvo' => ['required'],
             'valor_cota' => ['required'],
             'participacao' => ['required'],
             'descricao' => [],
