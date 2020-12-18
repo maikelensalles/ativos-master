@@ -71,7 +71,8 @@
                                 <ul>
                                     <p><strong>Banco: </strong>{{ $data->banco }}</p>
                                     <p><strong>Agência: </strong>{{ $data->agencia }}</p>
-                                    <p><strong>Conta Corrente: </strong>{{ $data->conta_corrente }}</p>
+                                    <p><strong>Conta (sem dígito): </strong>{{ $data->conta_corrente }}</p>
+                                    <p><strong>Dígito Conta: </strong>{{ $data->digito }}</p>
                                 </ul>
                             </table>
                         </div>

@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('banco')->nullable();
 			$table->string('agencia')->nullable(); 
             $table->string('conta_corrente')->nullable();
+            $table->string('digito')->nullable();
             $table->string('image')->nullable();
 			$table->string('nascimento')->nullable(); 
 			$table->string('genero')->nullable();
