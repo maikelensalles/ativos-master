@@ -16,6 +16,10 @@ class ContratoController extends Controller
 
     public function __construct(Contrato $contrato, Request $request)
     {
+        $this->middleware('permission:product-list|product-create|product-edit|product-delete', ['only' => ['index','show']]);
+        $this->middleware('permission:product-create', ['only' => ['create','store']]);
+        $this->middleware('permission:product-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:product-delete', ['only' => ['destroy']]);
         $this->request = $request;
         $this->repository = $contrato;
         $this->contrato = $contrato;
@@ -30,7 +34,8 @@ class ContratoController extends Controller
     {
         $contratos = Contrato::paginate(25);
 
-        return view('pages.propostas.index', compact('contratos'));
+        return view('pages.propostas.index', compact('contratos'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -54,7 +59,7 @@ class ContratoController extends Controller
      */
     public function store(ContratoRequest $request, Contrato $model)
     {
-        $data = $request->only('titulo', 'sub_titulo', 'descricao', 'descricao_longa', 'contrato_setor_id', 'rentabilidade_alvo', 'body', 'body_2', 'valor_captado', 'body_3', 'status', 'valor_cota', 'participacao');
+        $data = $request->only('titulo', 'image_body', 'image_body2', 'forma_pagamento', 'sub_titulo', 'descricao', 'descricao_longa', 'contrato_setor_id', 'rentabilidade_alvo', 'body', 'body_2', 'body_3', 'status', 'valor_cota', 'participacao');
 
         if ($request->hasFile('image') && $request->image->isValid()) {
             $imagePath = $request->image->store('contratos');
@@ -62,10 +67,23 @@ class ContratoController extends Controller
             $data['image'] = $imagePath;
         }
 
+        if ($request->hasFile('image_body') && $request->image_body->isValid()) {
+            $image_bodyPath = $request->image_body->store('contratos2');
+
+            $data['image_body'] = $image_bodyPath;
+        }
+
+        if ($request->hasFile('image_body2') && $request->image_body2->isValid()) {
+            $image_body2Path = $request->image_body2->store('contratos3');
+
+            $data['image_body2'] = $image_body2Path;
+        }
+
         $this->repository->create($data);
 
         return redirect()->route('propostas.index');
     }
+
 
      /**
      * Display the specified resource.
@@ -121,6 +139,26 @@ class ContratoController extends Controller
 
             $imagePath = $request->image->store('novidades');
             $data['image'] = $imagePath;
+        }
+
+        if ($request->hasFile('image_body') && $request->image_body->isValid()) {
+
+            if ($contrato->image_body && Storage::exists($contrato->image_body)) {
+                Storage::delete($contrato->image_body);
+            }
+
+            $image_bodyPath = $request->image_body->store('contratos2');
+            $data['image_body'] = $image_bodyPath;
+        }
+
+        if ($request->hasFile('image_body2') && $request->image_body2->isValid()) {
+
+            if ($contrato->image_body2 && Storage::exists($contrato->image_body2)) {
+                Storage::delete($contrato->image_body2);
+            }
+
+            $image_body2Path = $request->image_body2->store('contratos3');
+            $data['image_body2'] = $image_body2Path;
         }
 
         $contrato->update($data);

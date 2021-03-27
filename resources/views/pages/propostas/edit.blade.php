@@ -58,12 +58,6 @@
                                             @include('alerts.feedback', ['field' => 'participacao'])
                                         </div>
 
-                                        <div class="form-group{{ $errors->has('valor_captado') ? ' has-danger' : '' }}">
-                                            <label class="form-control-label" for="input-valor_captado">{{ __('Valor Captado') }}</label>
-                                            <input type="number" name="valor_captado" id="input-valor_captado" class="form-control form-control-alternative" placeholder="Valor Captado" value="{{ old('valor_captado', $contrato->valor_captado) }}" required>
-                                            @include('alerts.feedback', ['field' => 'valor_captado'])
-                                        </div>
-
                                         <div class="form-group{{ $errors->has('rentabilidade_alvo') ? ' has-danger' : '' }}">
                                             <label class="form-control-label" for="input-rentabilidade_alvo">{{ __('Rentabilidade Alvo') }}</label>
                                             <input type="number" step=".01" name="rentabilidade_alvo" id="input-rentabilidade_alvo" class="form-control form-control-alternative" placeholder="Rentabilidade Alvo" value="{{ old('rentabilidade_alvo', $contrato->rentabilidade_alvo) }}" required>
@@ -88,6 +82,11 @@
                                             @include('alerts.feedback', ['field' => 'descricao'])
                                         </div>
 
+                                        <div class="form-group">
+                                            <input type="file" name="image_body2" class="form-control form-control-alternative"  required>
+                                            @include('alerts.feedback', ['field' => 'image_body2'])
+                                        </div>
+
                                         <div class="form-group{{ $errors->has('descricao_longa') ? ' has-danger' : '' }}">
                                             <label class="form-control-label" for="input-descricao_longa">{{ __('Descrição (opcional)') }}</label>
                                             <input type="text" name="descricao_longa" id="input-descricao_longa" class="form-control form-control-alternative" placeholder="Descrição (opcional)" value="{{ old('descricao_longa', $contrato->descricao_longa) }}" required>
@@ -98,6 +97,17 @@
                                             <label class="form-control-label" for="input-body_3">{{ __('Conteúdo 3') }}</label>
                                             <textarea name="body_3" id="" cols="30" rows="10" class="form-control form-control-alternative{{ $errors->has('body_3') ? ' is-invalid' : '' }}">{{ $contrato->body_3 }}</textarea>
                                             @include('alerts.feedback', ['field' => 'body_3'])
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="file" name="image_body" class="form-control form-control-alternative"  required>
+                                            @include('alerts.feedback', ['field' => 'image_body'])
+                                        </div>
+
+                                        <div class="form-group{{ $errors->has('forma_pagamento') ? ' has-danger' : '' }}">
+                                            <label class="form-control-label" for="input-forma_pagamento">{{ __('Forma Pagamento') }}</label>
+                                            <input type="text" name="forma_pagamento" id="input-forma_pagamento" class="form-control form-control-alternative" placeholder="Forma Pagamento" value="{{ old('forma_pagamento', $contrato->forma_pagamento) }}" required>
+                                            @include('alerts.feedback', ['field' => 'forma_pagamento'])
                                         </div>
 
                                         <div class="form-group{{ $errors->has('status') ? ' has-danger' : '' }}">

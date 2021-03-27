@@ -14,7 +14,7 @@ class CreateNovidadesTable extends Migration
     public function up()
     {
         Schema::create('novidades', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('titulo', 50); 
             $table->string('sub_titulo', 30); 
 			$table->string('descricao', 100);
@@ -22,7 +22,10 @@ class CreateNovidadesTable extends Migration
             $table->string('image', 100); 
             $table->string('descricao_media', 600)->nullable();
             $table->string('obs', 350);
-			$table->timestamps();
+            $table->unsignedBigInteger('user_id');
+            $table->timestamps();
+            $table->softDeletes();
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

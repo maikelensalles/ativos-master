@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ContratoUser extends Model
 {
+    use SoftDeletes;
     protected $table = 'contrato_users';
     protected $fillable = ['valor', 'saque', 'status', 'status_saque', 'contrato_id', 'user_id'];
     
@@ -22,5 +23,9 @@ class ContratoUser extends Model
 
     public function contratousersaque() {
         return $this->hasMany('App\ContratoUserSaque');
+    }
+
+    public function usersaldo() {
+        return $this->hasMany('App\UserSaldo');
     }
 }

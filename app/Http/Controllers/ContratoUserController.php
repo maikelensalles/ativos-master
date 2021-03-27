@@ -15,6 +15,10 @@ class ContratoUserController extends Controller
 
     public function __construct(Request $request, ContratoUser $contratouser)
     {
+        $this->middleware('permission:product-list|product-create|product-edit|product-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:product-create', ['only' => ['create','store']]);
+         $this->middleware('permission:product-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:product-delete', ['only' => ['destroy']]);
         $this->request = $request;
         $this->repository = $contratouser;
     }
@@ -157,5 +161,27 @@ class ContratoUserController extends Controller
         $contratouser->update($data);
 
         return redirect()->route('saques.saque');
+    }
+
+    public function editar(ContratoUser $id)
+    {
+        $contratouser = ContratoUser::all();
+
+        if (!$contratouser = $this->repository->find($id))
+            return redirect()->back();
+
+        return view('pages.contrato.editar', compact( 'contratouser'));
+    }
+
+    public function upar(ContratoUserRequest $request, $id)
+    {   
+        if (!$contratouser = $this->repository->find($id))
+        return redirect()->back();
+
+        $data = $request->all();
+
+        $contratouser->update($data);
+
+        return redirect()->route('resgates.index');
     }
 }

@@ -13,11 +13,19 @@
                                 <div class="col">
                                     <h3 class="mb-0">Listagem De Usuarios</h3>
                                 </div>
-                                <div class="col text-right">
-                                    <a href="#" class="btn btn-sm btn-primary">Algo aqui</a>
+                                <div class="col text-left">
+                                    <a href="{{ route('users.create') }}" class="btn btn-sm btn-primary">Criar Novo Usuário</a>
+                                </div>
+                                <div class="col text-leftright">
+                                    <a href="{{ route('roles.create') }}" class="btn btn-sm btn-primary">Criar Nova Regra</a>
                                 </div>
                             </div>
                         </div>
+                        @if ($message = Session::get('success'))
+                        <div class="alert alert-success">
+                        <p>{{ $message }}</p>
+                        </div>
+                        @endif
                         <div class="table-responsive">
                             <table class="table align-items-center table-flush">
                                 <thead class="thead-light">
@@ -25,10 +33,20 @@
                                         <th scope="col" width="100">Imagem</th>
                                         <th scope="col">Nome</th>
                                         <th scope="col">Email</th>
+                                        <th scope="col">Funsão</th>
                                         <th scope="col" width="100">Ações</th>
                                     </tr>
                                 </thead>
-
+                             @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                                 <tbody>
                                     @foreach ($data as $key => $user)
                                         <tr>
@@ -43,17 +61,29 @@
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</a></td>
                                             <td>
+                                                @if(!empty($user->getRoleNames()))
+                                                  @foreach($user->getRoleNames() as $v)
+                                                     <label class="badge badge-success">{{ $v }}</label>
+                                                  @endforeach
+                                                @endif
+                                              </td>
+                                            <td>
                                                 <form action="{{ route('user.show', $user) }}">
                                                 @csrf
                                                     
                                                     <button type="submit" class="btn btn-success btn-sm">Ver mais</button>
                                                 </form>
-                                                <br>                                             
+                                                <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">Edit</a>
+                                                {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
+                                                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                                                {!! Form::close() !!}
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
+                            {!! $data->render() !!}
+
                         </div>
                     </div>
                 </div>

@@ -11,9 +11,105 @@
 <div class="container-fluid mt--7">
     <div class="header-body">
         <div class="row">
-            @foreach ($contratousers as $contratouser)
-                <div class="col-xl-4 mr-0">
-                    <div class="card shadow mb-4 mb-xl-4">
+                <div class="col">
+
+                    <div class="card shadow"> 
+                        <div class="card-header border-0">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h3 class="mb-0">Solicitações Reservadas</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table align-items-center table-flush">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col" width="150">Usuário</th>
+                                        <th scope="col">Titulo da proposta</th> 
+                                        <th scope="col">Investimento</th>
+                                        <th scope="col">Data</th>
+                                        <th scope="col" width="100">Ações</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach ($contratousers as $contratouser)
+                                    @if($contratouser->status == NULL)
+
+                                    <tr>
+                                            <td>{{ $contratouser->user->name }}</td>
+                                            <td>{{ $contratouser->contrato->titulo }}</td>
+                                            <td>R${{ $contratouser->valor }}</td>
+                                            <td>{{ date( 'd/m/Y' , strtotime($contratouser->created_at)) }}</td>
+                                            <td>
+                                                <form action="{{ route('contratos.edit', $contratouser->id) }}">
+                                                    @csrf
+                                                    
+                                                    <button type="submit" class="btn btn-success btn-sm">ANALISAR</button>
+                                                </form>
+                                                <br>                                            
+                                            </td>
+                                        </tr>
+                                        @else
+                                        @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <br>
+                <br>
+               
+                <div class="card shadow"> 
+                    <div class="card-header border-0">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h3 class="mb-0">Solicitações aprovadas</h3>
+                                <p>Pagamento efetuado com sucesso!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">Titulo da proposta</th> 
+                                    <th scope="col">Investimento</th>
+                                    <th scope="col">Data</th>
+                                    <th scope="col" width="100">Ações</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach ($contratousers as $contratouser)
+                                @if($contratouser->status == "Aprovado")
+                                <tr>
+                                        <td>{{ $contratouser->contrato->titulo }}</td>
+                                        <td>R${{ $contratouser->valor }}</td>
+                                        <td>{{ date( 'd/m/Y' , strtotime($contratouser->updated_at)) }}</td>
+                                        <td>
+                                            <form action="{{ route('contratos.edit', $contratouser->id) }}">
+                                                @csrf
+                                                
+                                                <button type="submit" class="btn btn-success btn-sm">ANALISAR</button>
+                                            </form>
+                                            <br>
+                                                                                         
+                                        </td>
+                                    </tr>                            
+                                    
+                                    @else
+                                    @endif
+
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                    {{--<div class="card shadow mb-4 mb-xl-4">
                         <div>
                             <br>
                             <h2 class="card-title-white text-center" >#ID: {{ $contratouser->contrato->id }}</h2>
@@ -70,9 +166,8 @@
                                 </div> 
                             </div>
                         </div>
-                    </div>
+                    </div>--}}
                 </div>
-            @endforeach
         </div>
     </div>
 </div>

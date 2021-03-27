@@ -21,6 +21,7 @@ class CreateContratoUsersSaquesTable extends Migration
             $table->unsignedBigInteger('contrato_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
+            $table->softDeletes()->nullable();
             $table->foreign('contrato_id')->references('id')->on('contrato_users');
             $table->foreign('user_id')->references('id')->on('users');
         });

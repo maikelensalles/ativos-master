@@ -26,7 +26,6 @@ class ContratoUserRequest extends FormRequest
     {
         return [
             'valor' => ['required'],
-            'saque' => ['required'],
             'status' => ['required'],
             'contrato_id' => ['required'],
             'user_id' => ['required'],

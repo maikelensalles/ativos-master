@@ -25,7 +25,6 @@ class ContratoUserSaqueRequest extends FormRequest
     public function rules()
     {
         return [
-            'saque' => ['required'],
             'status_saque' => ['required'],
         ];
     }

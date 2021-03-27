@@ -92,13 +92,13 @@
 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('contratos.index') }}">
-                        <i class="fas fa-file-signature text-info"></i> {{ __('Meus Contratos') }}
+                        <i class="fas fa-file-signature text-info"></i> {{ __('Contratos') }}
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('resgates.index') }}">
-                        <i class="fas fa-hand-holding-usd text-success"></i> {{ __('Solicitar Resgate') }}
+                        <i class="fas fa-hand-holding-usd text-success"></i> {{ __('Enviar Resgate') }}
                     </a>
                 </li>
 
@@ -129,7 +129,19 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="{{ route('user.index') }}">
+                                    <i class="ni ni-fat-delete"></i>
+                                    {{ __('Gerenciar usuários') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('roles.index') }}">
+                                    <i class="ni ni-fat-delete"></i>
+                                    {{ __('Gerenciar funsões') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('grupos.index') }}">
                                     <i class="ni ni-fat-delete"></i>
                                     {{ __('Grupos WhatsApp') }}
                                 </a>

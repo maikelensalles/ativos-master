@@ -14,6 +14,10 @@ class ContratoSetorController extends Controller
 
     public function __construct(Request $request, ContratoSetor $setor)
     {
+        $this->middleware('permission:product-list|product-create|product-edit|product-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:product-create', ['only' => ['create','store']]);
+         $this->middleware('permission:product-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:product-delete', ['only' => ['destroy']]);
         $this->request = $request;
         $this->repository = $setor;
     }

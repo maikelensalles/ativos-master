@@ -5,10 +5,12 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -41,7 +43,15 @@ class User extends Authenticatable
         return $this->hasMany('App\ContratoUser');
     }
 
+    public function usersaldo() {
+        return $this->hasMany('App\UserSaldo');
+    }
+
     public function contratousersaque() {
         return $this->hasMany('App\ContratoUserSaque');
+    }
+
+    public function novidade() {
+        return $this->hasMany('App\Novidades');
     }
 }

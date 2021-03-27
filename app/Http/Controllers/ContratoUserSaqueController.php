@@ -3,6 +3,7 @@
 namespace App\Http\Controllers; 
 
 use App\Http\Requests\ContratoUserSaqueRequest;
+use App\Http\Requests\ContratoUserRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\ContratoUserSaque;
@@ -17,6 +18,10 @@ class ContratoUserSaqueController extends Controller
 
     public function __construct(Request $request, ContratoUserSaque $contratousersaque)
     {
+        $this->middleware('permission:product-list|product-create|product-edit|product-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:product-create', ['only' => ['create','store']]);
+         $this->middleware('permission:product-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:product-delete', ['only' => ['destroy']]);
         $this->request = $request;
         $this->repository = $contratousersaque;
     }
@@ -28,17 +33,15 @@ class ContratoUserSaqueController extends Controller
      */
     public function index(ContratoUserSaque $model)
     {
-        $contratousersaques = ContratoUserSaque::paginate(25);
+        $contratousersaques = ContratoUserSaque::all();
 
-        $contratos = DB::table('contrato_users')
-
-                     ->join('contratos', 'contrato_users.contrato_id', '=', 'contratos.id')
-
-                     ->get();
+        $contratousers = ContratoUser::all();
         
-        $propostas = Contrato::all();
+        $contratos = Contrato::all();
 
-        return view('pages.resgates.index', compact('contratousersaques', 'contratos', 'propostas'));
+        $users = User::all();
+
+        return view('pages.resgates.index', compact('contratousersaques', 'contratousers', 'contratos', 'users'));
     }
 
     /**
@@ -94,6 +97,8 @@ class ContratoUserSaqueController extends Controller
      */
     public function edit($id)
     {
+        $contratousersaque = ContratoUserSaque::all();
+
         if (!$contratousersaque = $this->repository->find($id))
             return redirect()->back();
 

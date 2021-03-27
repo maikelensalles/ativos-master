@@ -11,7 +11,7 @@ class Contrato extends Model
     use HasSlug;
     protected $table = 'contratos';
 
-    protected $fillable = ['image', 'participacao', 'titulo', 'sub_titulo', 'descricao', 'descricao_longa', 'rentabilidade_alvo', 'contrato_setor_id', 'body_3', 'body', 'body_2', 'valor_captado', 'valor_cota', 'status', 'slug', 'investidor'];
+    protected $fillable = ['image', 'image_body', 'image_body2', 'forma_pagamento', 'participacao', 'titulo', 'sub_titulo', 'descricao', 'descricao_longa', 'rentabilidade_alvo', 'contrato_setor_id', 'body_3', 'body', 'body_2', 'valor_captado', 'valor_cota', 'status', 'slug', 'investidor'];
 
     public function search($filter = null)
     {

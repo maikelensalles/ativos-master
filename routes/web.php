@@ -12,15 +12,28 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['middleware' => ['auth']], function() {
+    Route::resource('roles','RoleController');
+});
+
 Route::any('propostas/search', 'ContratoController@search')->name('propostas.search')->middleware('auth');
 
 Route::resource('novidades', 'NovidadeController')->middleware('auth');
 
 Route::resource('gestores', 'UserGestoreController')->middleware('auth');
 
+Route::resource('grupos', 'GrupoController')->middleware('auth');
+
 Route::resource('propostas', 'ContratoController')->middleware('auth');
 
 Route::resource('resgates', 'ContratoUserSaqueController')->middleware('auth');
+
+Route::resource('saldos', 'UserSaldoController')->middleware('auth');
 
 Route::resource('contratos', 'ContratoUserController')->middleware('auth');
 
@@ -38,12 +51,9 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('user', 'UserController');
+	Route::resource('users','UserController');
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
@@ -63,4 +73,3 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('bancarios', ['as' => 'bancarios.update', 'uses' => 'BancarioController@update']);
 	Route::get('bancarios', ['as' => 'bancarios.edit', 'uses' => 'BancarioController@edit']);
 });
-	

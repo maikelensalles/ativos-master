@@ -26,6 +26,9 @@ class ContratoRequest extends FormRequest
     {
         return [
             'image' => ['required'],
+            'image_body' => ['required'],
+            'image_body2' => ['required'],
+            'forma_pagamento' => ['required'],
             'titulo' => ['required'],
             'sub_titulo' => ['required'],
             'rentabilidade_alvo' => ['required'],
